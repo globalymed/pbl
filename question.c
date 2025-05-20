@@ -1,6 +1,46 @@
 #include <stdio.h>
 #include <string.h>
-#include "quiz.h"
+
+#define MAX_QUESTIONS 100
+#define MAX_PARTICIPANTS 100
+#define MAX_ATTEMPTS 100
+#define MAX_NAME_LENGTH 100
+#define MAX_QUESTION_LENGTH 256
+#define MAX_OPTION_LENGTH 128
+
+typedef struct {
+    char question[MAX_QUESTION_LENGTH];
+    char options[4][MAX_OPTION_LENGTH];
+    int correctOption;
+} Question;
+
+typedef struct {
+    char name[MAX_NAME_LENGTH];
+    int score;
+    int totalQuestions;
+    float percentage;
+} Result;
+
+typedef struct {
+    char participantName[MAX_NAME_LENGTH];
+    int score;
+    int totalQuestions;
+    float percentage;
+} Attempt;
+
+// Extern global variables
+extern Question questions[MAX_QUESTIONS];
+extern Result results[MAX_PARTICIPANTS];
+extern Attempt attempts[MAX_ATTEMPTS];
+extern int questionCount;
+extern int participantCount;
+extern int attemptCount;
+
+// Function prototypes
+void clearScreen();
+int validateInput(int min, int max);
+void saveQuestionsToFile();
+void loadQuestionsFromFile();
 
 void addQuestion() {
     clearScreen();
